@@ -225,6 +225,34 @@ def max_profit(arr):
                 max_profit = arr[next_val] - val
             next_val+=1
     return max_profit
+
+# Given an array of numbers, find the maximum sum of any contiguous subarray of the array.
+# For example, given the array [34, -50, 42, 14, -5, 86], the maximum sum would be 137, since we would take elements 42, 14, -5, and 86.
+# Given the array [-5, -1, -8, -9], the maximum sum would be 0, since we would not take any elements.
+# Do this in O(N) time.
+
+def maximun_contiguos(array):
+    max_far = 0
+    max_ending_here = 0
+    start = 0
+    end = 0
+    s_tmp = start
+
+    for idx in range(len(array)):
+        max_ending_here = max_ending_here + array[idx]
+        if max_ending_here < 0:
+            max_ending_here = 0
+            s_tmp = idx + 1
+            start = idx
+        if max_far < max_ending_here:
+            start = s_tmp 
+            end = idx + 1
+            max_far = max_ending_here
+    
+    if max_far <= 0:
+        return 0, []
+    
+    return max_far, array[start:end]
             
 
 
@@ -249,7 +277,9 @@ def main():
     # print(ss.max())
 
     # print(merge_sort([2, 4, 1, 3 ,5]) )
-    print(max_profit([9, 11, 8, 5, 7, 10]))
+    # print(max_profit([9, 11, 8, 5, 7, 10]))
+    print(maximun_contiguos([34, -50, 42, 14, -5, 86]))
+    print(maximun_contiguos([-5, -1, -8, -9] ))
 
 
 if __name__ == "__main__":
