@@ -29,8 +29,37 @@ def bishops_can_attack(bishops, size):
 
     return int(sum/2)
 
+def largest_three_product(array):
+    """
+    Given a list of integers, return the largest product that can be made by multiplying any three integers.
+    """
+
+    if len(array) < 3:
+        return None
+    
+    array.sort()
+    less = 0
+    up = len(array) - 1
+    cont = 0
+    values = []
+    acumulado = 1
+    while cont < 3:
+        if abs(array[less] * acumulado) > abs(array[up] * acumulado):
+            values.append(array[less])
+            acumulado *= array[less]
+            less += 1
+        else:
+            values.append(array[up])
+            acumulado *= array[up]
+            up -= 1
+        cont += 1
+
+    return values
+
+
 def main():
-    print(bishops_can_attack([(0, 0), (1, 2) ,(2, 2) ,(4, 0)], 5))
+    # print(bishops_can_attack([(0, 0), (1, 2) ,(2, 2) ,(4, 0)], 5))
+    print(largest_three_product([-10, -10, 5, 2]))
 
 if __name__ == "__main__":
     main()
